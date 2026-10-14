@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Navbar, Card, Button, Input, Grid } from '@dk-revestimentos/design-system';
+import { clients } from '../services/supabase';
+
+const allClients = await clients.getAll();
+---
+
+<Layout title="Gerenciar Clientes">
+  <Navbar logo="DK Revestimentos Admin">
+    <Button variant="outline" size="md" onclick="window.location.href='/login'">
+      Sair
+    </Button>
+  </Navbar>
+
+  <main class="min-h-screen bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 py-12">
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold">Gerenciar Clientes</h1>
+        <Button onclick="alert('Novo cliente')">+ Novo Cliente</Button>
+      </div>
+
+      {/* Search */}
+      <Card variant="default" class="mb-8">
+        <div class="flex gap-4 mb-4">
+          <Input type="search" placeholder="Buscar por nome ou email..." />
+          <Button variant="secondary">Buscar</Button>
+        </div>
+      </Card>
+
+      {/* Clients Grid */}
+      <Grid columns={3} gap={24} class="mb-8">
+        {
+          allClients.map((client) => (
+            <Card variant="elevated" class="cursor-pointer hover:shadow-xl transition-shadow">
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <h3 class="font-semibold text-lg">{client.name}</h3>
+                  <p class="text-sm text-gray-600">{client.email}</p>
+                </div>
+                <span class={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  client.status === 'ativo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                }`}>
+                  {client.status}
+                </span>
+              </div>
+
+              <div class="space-y-2 text-sm text-gray-600 mb-4">
+                <p>📞 {client.phone}</p>
+                <p>📍 {client.address}</p>
+                <p>🏗️ {client.projects} projeto(s)</p>
+              </div>
+
+              <Button variant="outline" size="sm" class="w-full">
+                Ver Detalhes
+              </Button>
+            </Card>
+          ))
+        }
+      </Grid>
+
+      {allClients.length === 0 && (
+        <Card variant="default" class="text-center py-12">
+          <p class="text-gray-500 mb-4">Nenhum cliente encontrado</p>
+          <Button onclick="alert('Novo cliente')">+ Adicionar Cliente</Button>
+        </Card>
+      )}
+    </div>
+  </main>
+</Layout>

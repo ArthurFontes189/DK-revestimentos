@@ -1,0 +1,35 @@
+---
+import Page from '../layouts/Page.astro';
+import { Card, Grid } from '@agencia/design-system';
+import { siteConfig } from '../data/site';
+---
+
+<Page title="About Us | Your Company" description="Learn more about our company">
+  <div style={{ padding: 'var(--spacing-4xl) var(--spacing-lg)' }}>
+    <h1 style={{ marginBottom: 'var(--spacing-lg)' }}>About {siteConfig.name}</h1>
+
+    <div style={{ maxWidth: '800px', margin: '0 auto var(--spacing-3xl)' }}>
+      <p>
+        We are a team of passionate professionals dedicated to creating amazing digital experiences.
+        With years of experience in the industry, we've helped countless businesses achieve their goals.
+      </p>
+    </div>
+
+    <h2 style={{ marginBottom: 'var(--spacing-lg)' }}>Our Values</h2>
+
+    <Grid columns={3}>
+      <Card>
+        <h3>🎯 Excellence</h3>
+        <p>We strive for excellence in everything we do</p>
+      </Card>
+      <Card>
+        <h3>🤝 Integrity</h3>
+        <p>We believe in honest and transparent communication</p>
+      </Card>
+      <Card>
+        <h3>💡 Innovation</h3>
+        <p>We embrace new ideas and technologies</p>
+      </Card>
+    </Grid>
+  </div>
+</Page>

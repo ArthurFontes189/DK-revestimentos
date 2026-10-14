@@ -1,0 +1,100 @@
+---
+import Page from '../../layouts/Page.astro';
+import { Card } from '@agencia/design-system';
+import { projects, getProjectById } from '../../data/projects';
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+
+if (!project) {
+  return Astro.redirect('/portfolio');
+}
+---
+
+<Page title={`${project.title} | Portfolio`} description={project.description}>
+  <div style={{ padding: 'var(--spacing-4xl) var(--spacing-lg)', maxWidth: '900px', margin: '0 auto' }}>
+    <a href="/portfolio" style={{
+      display: 'inline-block',
+      marginBottom: 'var(--spacing-lg)',
+      color: 'var(--color-primary)',
+      textDecoration: 'none',
+    }}>
+      ← Back to Portfolio
+    </a>
+
+    <h1 style={{ marginBottom: 'var(--spacing-md)' }}>{project.title}</h1>
+
+    <div style={{ display: 'flex', gap: 'var(--spacing-2xl)', marginBottom: 'var(--spacing-3xl)', flexWrap: 'wrap' }}>
+      <div>
+        <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--spacing-xs)' }}>Client</p>
+        <p style={{ fontWeight: 'var(--font-semibold)' }}>{project.client}</p>
+      </div>
+      <div>
+        <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--spacing-xs)' }}>Category</p>
+        <p style={{ fontWeight: 'var(--font-semibold)' }}>{project.category}</p>
+      </div>
+      <div>
+        <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--spacing-xs)' }}>Year</p>
+        <p style={{ fontWeight: 'var(--font-semibold)' }}>{project.year}</p>
+      </div>
+    </div>
+
+    <img
+      src={project.image}
+      alt={project.title}
+      style={{
+        width: '100%',
+        borderRadius: 'var(--radius-lg)',
+        marginBottom: 'var(--spacing-3xl)',
+        maxHeight: '500px',
+        objectFit: 'cover',
+      }}
+    />
+
+    <div style={{ marginBottom: 'var(--spacing-3xl)' }}>
+      <h2 style={{ marginBottom: 'var(--spacing-lg)' }}>About this project</h2>
+      <p style={{ lineHeight: 'var(--line-relaxed)', color: 'var(--color-text-secondary)' }}>
+        {project.description}
+      </p>
+    </div>
+
+    {project.tags && (
+      <div style={{ marginBottom: 'var(--spacing-3xl)' }}>
+        <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Skills Used</h3>
+        <div style={{ display: 'flex', gap: 'var(--spacing-sm)', flexWrap: 'wrap' }}>
+          {project.tags.map((tag) => (
+            <span style={{
+              padding: '6px 12px',
+              backgroundColor: 'var(--color-primary-light)',
+              color: 'var(--color-primary)',
+              borderRadius: 'var(--radius-full)',
+              fontSize: 'var(--text-sm)',
+            }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {project.link && (
+      <a href={project.link} target="_blank" style={{
+        display: 'inline-block',
+        padding: '12px 24px',
+        backgroundColor: 'var(--color-primary)',
+        color: 'var(--color-white)',
+        borderRadius: 'var(--radius-md)',
+        textDecoration: 'none',
+        fontWeight: 'var(--font-semibold)',
+      }}>
+        View Live Project →
+      </a>
+    )}
+  </div>
+</Page>

@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Navbar, Card, Button, Grid } from '@dk-revestimentos/design-system';
+
+// Mock data
+const receitas = [
+  { id: '1', desc: 'Projeto Apto Zona Sul', valor: 5000, data: '2026-10-01' },
+  { id: '2', desc: 'Projeto Loja Centro', valor: 3500, data: '2026-10-05' },
+  { id: '3', desc: 'Serviço Instalação Extra', valor: 1200, data: '2026-10-08' },
+];
+
+const despesas = [
+  { id: '1', desc: 'Compra de Materiais', valor: 2000, data: '2026-10-02' },
+  { id: '2', desc: 'Folha de Pagamento', valor: 10000, data: '2026-10-05' },
+  { id: '3', desc: 'Aluguel Escritório', valor: 2000, data: '2026-10-10' },
+];
+
+const totalReceita = receitas.reduce((sum, r) => sum + r.valor, 0);
+const totalDespesa = despesas.reduce((sum, d) => sum + d.valor, 0);
+const lucro = totalReceita - totalDespesa;
+const margem = totalReceita > 0 ? (lucro / totalReceita * 100).toFixed(1) : 0;
+---
+
+<Layout title="Financeiro">
+  <Navbar logo="DK Revestimentos Admin">
+    <Button variant="outline" size="md" onclick="window.location.href='/login'">
+      Sair
+    </Button>
+  </Navbar>
+
+  <main class="min-h-screen bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 py-12">
+      <h1 class="text-3xl font-bold mb-8">Financeiro - Outubro 2026</h1>
+
+      {/* Summary Cards */}
+      <Grid columns={4} gap={24} class="mb-12">
+        <Card variant="elevated" class="bg-green-50">
+          <p class="text-gray-600 text-sm mb-2">Receita Total</p>
+          <p class="text-3xl font-bold text-green-600">R$ {totalReceita.toLocaleString('pt-BR')}</p>
+        </Card>
+        <Card variant="elevated" class="bg-red-50">
+          <p class="text-gray-600 text-sm mb-2">Despesa Total</p>
+          <p class="text-3xl font-bold text-red-600">R$ {totalDespesa.toLocaleString('pt-BR')}</p>
+        </Card>
+        <Card variant="elevated" class={lucro >= 0 ? 'bg-blue-50' : 'bg-orange-50'}>
+          <p class="text-gray-600 text-sm mb-2">Lucro</p>
+          <p class={`text-3xl font-bold ${lucro >= 0 ? 'text-blue-600' : 'text-orange-600'}`}>
+            R$ {lucro.toLocaleString('pt-BR')}
+          </p>
+        </Card>
+        <Card variant="elevated" class="bg-purple-50">
+          <p class="text-gray-600 text-sm mb-2">Margem</p>
+          <p class="text-3xl font-bold text-purple-600">{margem}%</p>
+        </Card>
+      </Grid>
+
+      <div class="grid grid-cols-2 gap-8">
+        {/* Receitas */}
+        <Card variant="elevated">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold">Receitas</h2>
+            <Button variant="outline" size="sm">+ Adicionar</Button>
+          </div>
+          <div class="space-y-3 max-h-96 overflow-y-auto">
+            {
+              receitas.map((r) => (
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <p class="font-medium text-sm">{r.desc}</p>
+                    <p class="text-xs text-gray-600">{new Date(r.data).toLocaleDateString('pt-BR')}</p>
+                  </div>
+                  <p class="text-green-600 font-semibold">+R$ {r.valor.toLocaleString('pt-BR')}</p>
+                </div>
+              ))
+            }
+          </div>
+        </Card>
+
+        {/* Despesas */}
+        <Card variant="elevated">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold">Despesas</h2>
+            <Button variant="outline" size="sm">+ Adicionar</Button>
+          </div>
+          <div class="space-y-3 max-h-96 overflow-y-auto">
+            {
+              despesas.map((d) => (
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <p class="font-medium text-sm">{d.desc}</p>
+                    <p class="text-xs text-gray-600">{new Date(d.data).toLocaleDateString('pt-BR')}</p>
+                  </div>
+                  <p class="text-red-600 font-semibold">-R$ {d.valor.toLocaleString('pt-BR')}</p>
+                </div>
+              ))
+            }
+          </div>
+        </Card>
+      </div>
+
+      {/* Export Button */}
+      <div class="mt-8 flex justify-center gap-4">
+        <Button variant="outline">📥 Baixar Relatório</Button>
+        <Button variant="outline">🖨️ Imprimir</Button>
+        <Button variant="secondary">📊 Ver Gráficos</Button>
+      </div>
+    </div>
+  </main>
+</Layout>

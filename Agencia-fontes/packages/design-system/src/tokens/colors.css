@@ -1,0 +1,44 @@
+/* Colors - Agência Fontes Design Tokens */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #0066FF;
+  --color-primary-dark: #001F3F;
+  --color-primary-light: #E0F0FF;
+
+  /* Neutral Colors */
+  --color-white: #FFFFFF;
+  --color-dark: #0A0E27;
+  --color-light-gray: #F5F7FB;
+  --color-medium-gray: #6B7280;
+
+  /* Accent Colors */
+  --color-accent-cyan: #06B6D4;
+  --color-success: #10B981;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+
+  /* Functional Colors */
+  --color-border: #E5E7EB;
+  --color-bg-light: #F9FAFB;
+  --color-bg-default: #FFFFFF;
+  --color-text-primary: #0A0E27;
+  --color-text-secondary: #6B7280;
+
+  /* Gradients */
+  --gradient-blue-cyan: linear-gradient(135deg, #0066FF, #06B6D4);
+  --gradient-dark: linear-gradient(135deg, #001F3F, #0A0E27);
+  --gradient-accent: linear-gradient(90deg, #0066FF, #00D9FF);
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-default: #0A0E27;
+    --color-bg-light: #1F2937;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #D1D5DB;
+    --color-border: #374151;
+    --color-light-gray: #1F2937;
+  }
+}

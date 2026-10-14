@@ -1,0 +1,49 @@
+---
+import Page from '../layouts/Page.astro';
+import { Card, Grid } from '@agencia/design-system';
+import { metrics, cards } from '../data/dashboard';
+---
+
+<Page title="Dashboard | SaaS" description="Example dashboard">
+  <div style={{ padding: 'var(--spacing-4xl) var(--spacing-lg)' }}>
+    <h1 style={{ marginBottom: 'var(--spacing-xl)' }}>Dashboard</h1>
+
+    <h2 style={{ marginBottom: 'var(--spacing-lg)' }}>Key Metrics</h2>
+
+    <div class="dashboard-grid" style={{ marginBottom: 'var(--spacing-3xl)' }}>
+      {metrics.map((metric) => (
+        <div class="metric-card">
+          <div style={{ fontSize: '24px' }}>{metric.icon}</div>
+          <div class="metric-value">{metric.value}</div>
+          <div class="metric-label">{metric.label}</div>
+          {metric.change !== undefined && (
+            <div class={`metric-change ${metric.change > 0 ? 'up' : metric.change < 0 ? 'down' : ''}`}>
+              {metric.change > 0 ? '↑' : metric.change < 0 ? '↓' : '→'} {Math.abs(metric.change)}%
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <h2 style={{ marginBottom: 'var(--spacing-lg)' }}>Performance Cards</h2>
+
+    <Grid columns={2}>
+      {cards.map((card) => (
+        <Card>
+          <h3 style={{ marginBottom: 'var(--spacing-md)' }}>{card.title}</h3>
+          <div style={{ marginBottom: 'var(--spacing-lg)' }}>
+            <div style={{ fontSize: 'var(--text-3xl)', fontWeight: 'var(--font-bold)', color: 'var(--color-primary)' }}>
+              {card.value}
+            </div>
+            <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary)', margin: '0' }}>
+              {card.description}
+            </p>
+          </div>
+          <div style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--font-semibold)', color: card.trend === 'up' ? 'var(--color-success)' : card.trend === 'down' ? 'var(--color-error)' : 'var(--color-accent-cyan)' }}>
+            {card.trend === 'up' ? '↑' : card.trend === 'down' ? '↓' : '→'} {card.trendValue}
+          </div>
+        </Card>
+      ))}
+    </Grid>
+  </div>
+</Page>

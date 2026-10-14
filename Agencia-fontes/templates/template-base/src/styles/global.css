@@ -1,0 +1,21 @@
+/* Import Design System Tokens */
+@import '@agencia/design-system/src/tokens/index.css';
+
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Global Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth transitions */
+* {
+  @apply transition-all duration-300 ease-out;
+}
+
+button:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}

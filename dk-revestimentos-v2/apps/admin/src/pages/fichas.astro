@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Navbar, Card, Button, Grid } from '@dk-revestimentos/design-system';
+
+// Mock data
+const fichas = [
+  {
+    id: '1',
+    title: 'Instalação Porcelanato - Apartamento 101',
+    project: 'Apto Zona Sul',
+    status: 'in_progress',
+    materials: 15,
+    labor: 40,
+    cost: 2400,
+  },
+  {
+    id: '2',
+    title: 'Azulejos Decorativos - Loja Centro',
+    project: 'Loja Boutique',
+    status: 'approved',
+    materials: 8,
+    labor: 20,
+    cost: 1200,
+  },
+];
+---
+
+<Layout title="Fichas de Serviço">
+  <Navbar logo="DK Revestimentos Admin">
+    <Button variant="outline" size="md" onclick="window.location.href='/login'">
+      Sair
+    </Button>
+  </Navbar>
+
+  <main class="min-h-screen bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 py-12">
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold">Fichas de Serviço</h1>
+        <Button onclick="alert('Nova ficha')">+ Nova Ficha</Button>
+      </div>
+
+      <Grid columns={2} gap={24}>
+        {
+          fichas.map((ficha) => (
+            <Card variant="elevated" class="cursor-pointer hover:shadow-xl transition-shadow">
+              <div class="flex justify-between items-start mb-4">
+                <div class="flex-1">
+                  <h3 class="font-semibold text-lg">{ficha.title}</h3>
+                  <p class="text-sm text-gray-600">Projeto: {ficha.project}</p>
+                </div>
+                <span class={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${
+                  ficha.status === 'in_progress' ? 'bg-blue-100 text-blue-800' :
+                  ficha.status === 'approved' ? 'bg-green-100 text-green-800' :
+                  'bg-yellow-100 text-yellow-800'
+                }`}>
+                  {ficha.status === 'draft' && 'Rascunho'}
+                  {ficha.status === 'approved' && 'Aprovada'}
+                  {ficha.status === 'in_progress' && 'Em Progresso'}
+                  {ficha.status === 'completed' && 'Concluída'}
+                </span>
+              </div>
+
+              <div class="grid grid-cols-3 gap-4 mb-4 py-4 border-y border-gray-200">
+                <div>
+                  <p class="text-xs text-gray-600 mb-1">Materiais</p>
+                  <p class="text-xl font-bold">{ficha.materials}</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-600 mb-1">Horas</p>
+                  <p class="text-xl font-bold">{ficha.labor}h</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-600 mb-1">Custo</p>
+                  <p class="text-xl font-bold">R$ {ficha.cost}</p>
+                </div>
+              </div>
+
+              <Button variant="outline" size="sm" class="w-full">
+                Editar Ficha
+              </Button>
+            </Card>
+          ))
+        }
+      </Grid>
+
+      {fichas.length === 0 && (
+        <Card variant="default" class="text-center py-12">
+          <p class="text-gray-500 mb-4">Nenhuma ficha de serviço encontrada</p>
+          <Button onclick="alert('Nova ficha')">+ Criar Ficha</Button>
+        </Card>
+      )}
+    </div>
+  </main>
+</Layout>

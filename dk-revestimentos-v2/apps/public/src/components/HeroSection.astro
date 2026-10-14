@@ -1,0 +1,45 @@
+---
+import { Button } from '@dk-revestimentos/design-system';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaLink: string;
+  backgroundGradient?: string;
+}
+
+const {
+  title,
+  subtitle,
+  ctaText,
+  ctaLink,
+  backgroundGradient = 'from-blue-600 to-cyan-600',
+} = Astro.props;
+---
+
+<section class={`min-h-screen bg-gradient-to-br ${backgroundGradient} text-white flex items-center relative overflow-hidden`}>
+  {/* Padrão decorativo de dots */}
+  <div
+    class="absolute inset-0 opacity-10"
+    style={{
+      backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
+      backgroundSize: '20px 20px',
+    }}
+  ></div>
+
+  <div class="max-w-7xl mx-auto px-4 py-20 relative z-10">
+    <div class="max-w-2xl">
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">{title}</h1>
+      <p class="text-xl md:text-2xl mb-8 text-blue-100">{subtitle}</p>
+      <div class="flex gap-4">
+        <Button size="lg" client:load onclick={() => window.location.href = ctaLink}>
+          {ctaText}
+        </Button>
+        <Button variant="outline" size="lg" client:load>
+          Conhecer Mais
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

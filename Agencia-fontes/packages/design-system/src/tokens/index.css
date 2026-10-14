@@ -1,0 +1,95 @@
+/* Design System Tokens - Agência Fontes */
+
+@import './colors.css';
+@import './typography.css';
+@import './spacing.css';
+@import './shadows.css';
+
+/* Global Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--color-bg-default);
+  color: var(--color-text-primary);
+  font-size: var(--text-base);
+  line-height: var(--line-relaxed);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Typography Base */
+h1 {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-extrabold);
+  line-height: var(--line-tight);
+  margin-bottom: var(--spacing-md);
+}
+
+h2 {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  line-height: var(--line-snug);
+  margin-bottom: var(--spacing-md);
+}
+
+h3 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-semibold);
+  line-height: var(--line-snug);
+  margin-bottom: var(--spacing-sm);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+/* Buttons Base */
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  transition: all 200ms ease;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Inputs Base */
+input,
+textarea,
+select {
+  font-family: var(--font-sans);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--text-base);
+  transition: all 200ms ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}

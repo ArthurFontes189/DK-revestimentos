@@ -1,0 +1,45 @@
+---
+import { Footer as FooterComponent } from '@agencia/design-system';
+import { siteConfig } from '../data/site';
+
+const columns = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'Features', href: '#' },
+      { label: 'Pricing', href: '#' },
+      { label: 'Security', href: '#' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About', href: '/about' },
+      { label: 'Blog', href: '#' },
+      { label: 'Careers', href: '#' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy', href: '#' },
+      { label: 'Terms', href: '#' },
+      { label: 'Contact', href: '/contact' },
+    ],
+  },
+];
+
+const social = [
+  { platform: 'LinkedIn', url: siteConfig.social.linkedin },
+  { platform: 'Instagram', url: siteConfig.social.instagram },
+  { platform: 'Twitter', url: siteConfig.social.twitter },
+];
+
+const copyright = `© ${new Date().getFullYear()} ${siteConfig.name}. All rights reserved.`;
+---
+
+<FooterComponent
+  columns={columns}
+  social={social}
+  copyright={copyright}
+/>

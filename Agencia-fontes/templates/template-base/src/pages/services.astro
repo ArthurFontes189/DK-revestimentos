@@ -1,0 +1,37 @@
+---
+import Page from '../layouts/Page.astro';
+import { Grid, Card } from '@agencia/design-system';
+---
+
+<Page title="Services | Your Company" description="Explore our services">
+  <div style={{ padding: 'var(--spacing-4xl) var(--spacing-lg)' }}>
+    <h1 style={{ marginBottom: 'var(--spacing-lg)' }}>Our Services</h1>
+
+    <Grid columns={3}>
+      <Card>
+        <h3>💻 Web Development</h3>
+        <p>Custom websites and web applications built with modern technologies.</p>
+      </Card>
+      <Card>
+        <h3>🎨 Design</h3>
+        <p>Beautiful and functional design that delights your users.</p>
+      </Card>
+      <Card>
+        <h3>📱 Mobile Apps</h3>
+        <p>Native and cross-platform mobile applications.</p>
+      </Card>
+      <Card>
+        <h3>☁️ Cloud Solutions</h3>
+        <p>Scalable cloud infrastructure and deployment solutions.</p>
+      </Card>
+      <Card>
+        <h3>🔒 Security</h3>
+        <p>Enterprise-grade security and data protection.</p>
+      </Card>
+      <Card>
+        <h3>📊 Consulting</h3>
+        <p>Strategic consulting for digital transformation.</p>
+      </Card>
+    </Grid>
+  </div>
+</Page>

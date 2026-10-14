@@ -1,0 +1,68 @@
+---
+import Page from '../layouts/Page.astro';
+import { Input, Button, Card } from '@agencia/design-system';
+import { siteConfig } from '../data/site';
+---
+
+<Page title="Contact | Portfolio" description="Get in touch with me">
+  <div style={{ padding: 'var(--spacing-4xl) var(--spacing-lg)', maxWidth: '600px', margin: '0 auto' }}>
+    <h1 style={{ marginBottom: 'var(--spacing-lg)' }}>Get In Touch</h1>
+
+    <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--spacing-3xl)' }}>
+      Have a project in mind? Let's talk about how we can work together!
+    </p>
+
+    <Card style={{ marginBottom: 'var(--spacing-3xl)' } as any}>
+      <form style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-lg)' }}>
+        <Input
+          type="text"
+          placeholder="Your Name"
+          label="Name"
+        />
+        <Input
+          type="email"
+          placeholder="your@email.com"
+          label="Email"
+        />
+        <Input
+          type="text"
+          placeholder="Project Name"
+          label="Project"
+        />
+        <div>
+          <label style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontWeight: 'var(--font-semibold)', fontSize: 'var(--text-sm)' }}>
+            Message
+          </label>
+          <textarea
+            placeholder="Tell me about your project..."
+            style={{
+              width: '100%',
+              padding: '12px 16px',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--color-border)',
+              fontSize: 'var(--text-base)',
+              fontFamily: 'var(--font-sans)',
+              minHeight: '150px',
+            }}
+          ></textarea>
+        </div>
+        <Button type="submit">Send Message</Button>
+      </form>
+    </Card>
+
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--spacing-lg)' }}>
+      <Card>
+        <h3>📧 Email</h3>
+        <p><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
+      </Card>
+      <Card>
+        <h3>📞 Phone</h3>
+        <p><a href={`tel:${siteConfig.phone}`}>{siteConfig.phone}</a></p>
+      </Card>
+      <Card>
+        <h3>💼 LinkedIn</h3>
+        <p><a href={siteConfig.social.linkedin} target="_blank">View Profile</a></p>
+      </Card>
+    </div>
+  </div>
+</Page>

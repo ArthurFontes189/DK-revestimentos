@@ -1,0 +1,185 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build all templates
+        run: |
+          pnpm workspace template-base build
+          pnpm workspace template-portfolio build
+          pnpm workspace template-saas build
+
+      - name: Create deployment structure
+        run: |
+          mkdir -p dist/templates
+          cp -r templates/template-base/dist dist/templates/base
+          cp -r templates/template-portfolio/dist dist/templates/portfolio
+          cp -r templates/template-saas/dist dist/templates/saas
+
+          # Create index.html for showcase
+          cat > dist/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="pt-BR">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Agência Fontes - Templates</title>
+            <style>
+              * { margin: 0; padding: 0; box-sizing: border-box; }
+              body {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background: linear-gradient(135deg, #0A0E27 0%, #1F2937 100%);
+                color: #fff;
+                min-height: 100vh;
+                padding: 2rem;
+              }
+              .container {
+                max-width: 1200px;
+                margin: 0 auto;
+              }
+              header {
+                text-align: center;
+                margin-bottom: 4rem;
+              }
+              h1 {
+                font-size: 3rem;
+                margin-bottom: 0.5rem;
+                background: linear-gradient(135deg, #0066FF, #06B6D4);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+              }
+              .subtitle {
+                font-size: 1.125rem;
+                color: #9CA3AF;
+              }
+              .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 3rem;
+              }
+              .card {
+                background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(6, 182, 212, 0.05));
+                border: 1px solid rgba(0, 102, 255, 0.3);
+                border-radius: 12px;
+                padding: 2rem;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                color: inherit;
+              }
+              .card:hover {
+                transform: translateY(-4px);
+                border-color: #0066FF;
+                box-shadow: 0 0 30px rgba(0, 102, 255, 0.2);
+              }
+              .card h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                color: #0066FF;
+              }
+              .card p {
+                color: #D1D5DB;
+                margin-bottom: 1.5rem;
+                line-height: 1.6;
+              }
+              .card-button {
+                display: inline-block;
+                background: linear-gradient(135deg, #0066FF, #06B6D4);
+                color: white;
+                padding: 0.75rem 1.5rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+              }
+              .card-button:hover {
+                box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+              }
+              footer {
+                text-align: center;
+                margin-top: 4rem;
+                padding-top: 2rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                color: #9CA3AF;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <header>
+                <h1>Agência Fontes</h1>
+                <p class="subtitle">Templates Profissionais para Web</p>
+              </header>
+
+              <div class="grid">
+                <a href="/templates/base/" class="card">
+                  <h2>🎯 Template Base</h2>
+                  <p>Template minimalista e versátil para startup, PME e negócios locais. Pronto para customizar.</p>
+                  <span class="card-button">Ver Template →</span>
+                </a>
+
+                <a href="/templates/portfolio/" class="card">
+                  <h2>🎨 Template Portfolio</h2>
+                  <p>Perfeito para agências, criativos e fotógrafos. Showcase de projetos com galeria de imagens.</p>
+                  <span class="card-button">Ver Template →</span>
+                </a>
+
+                <a href="/templates/saas/" class="card">
+                  <h2>📊 Template SaaS</h2>
+                  <p>Especializado em dashboards, sistemas e ferramentas. Com exemplo de métricas e integração.</p>
+                  <span class="card-button">Ver Template →</span>
+                </a>
+              </div>
+
+              <footer>
+                <p>© 2026 Agência Fontes. Todos os direitos reservados.</p>
+                <p style="margin-top: 1rem; font-size: 0.875rem;">
+                  <a href="https://github.com/ArthurFontes189/Agencia-Fontes" style="color: #0066FF; text-decoration: none;">Ver no GitHub →</a>
+                </p>
+              </footer>
+            </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2

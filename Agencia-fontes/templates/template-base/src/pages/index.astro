@@ -1,0 +1,57 @@
+---
+import Page from '../layouts/Page.astro';
+import { Hero, FeatureGrid, Grid, CTA } from '@agencia/design-system';
+import { heroSection, featuresSection, ctaSection } from '../data/sections';
+
+const features = featuresSection.items.map(item => ({
+  icon: item.icon,
+  title: item.title,
+  description: item.description,
+}));
+---
+
+<Page title="Home | Your Company" description="Welcome to our amazing service">
+  <Hero
+    title={heroSection.title}
+    subtitle={heroSection.subtitle}
+    ctaText={heroSection.ctaText}
+  />
+
+  <section style={{ padding: 'var(--spacing-4xl) var(--spacing-lg)' }}>
+    <h2 style={{
+      textAlign: 'center',
+      marginBottom: 'var(--spacing-2xl)',
+      fontSize: 'var(--text-4xl)',
+      fontWeight: 'var(--font-bold)',
+    }}>
+      {featuresSection.title}
+    </h2>
+    <p style={{
+      textAlign: 'center',
+      marginBottom: 'var(--spacing-3xl)',
+      color: 'var(--color-text-secondary)',
+      maxWidth: '600px',
+      margin: '0 auto var(--spacing-3xl)',
+    }}>
+      {featuresSection.description}
+    </p>
+    <FeatureGrid features={features} />
+  </section>
+
+  <section style={{ padding: 'var(--spacing-4xl) var(--spacing-lg)', backgroundColor: 'var(--color-light-gray)' }}>
+    <h2 style={{
+      textAlign: 'center',
+      marginBottom: 'var(--spacing-3xl)',
+      fontSize: 'var(--text-4xl)',
+      fontWeight: 'var(--font-bold)',
+    }}>
+      What Our Clients Say
+    </h2>
+  </section>
+
+  <CTA
+    title={ctaSection.title}
+    description={ctaSection.description}
+    buttonText={ctaSection.buttonText}
+  />
+</Page>
