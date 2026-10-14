@@ -1,0 +1,27 @@
+@import '@dk-revestimentos/design-system/tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-dark);
+  background-color: var(--color-white);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+  }
+}

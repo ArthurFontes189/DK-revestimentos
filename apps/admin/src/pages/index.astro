@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Navbar, Card, Button } from '@dk-revestimentos/design-system';
+import { DashboardMetrics } from '../components/DashboardMetrics';
+---
+
+<Layout title="Dashboard">
+  <Navbar logo="DK Revestimentos Admin">
+    <Button variant="outline" size="md" onclick="window.location.href='/login'">
+      Sair
+    </Button>
+  </Navbar>
+
+  <main class="min-h-screen bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 py-12">
+      <h1 class="text-3xl font-bold mb-8">Painel de Controle</h1>
+
+      {/* Metrics */}
+      <DashboardMetrics client:load />
+
+      {/* Quick Actions */}
+      <Card variant="default">
+        <h2 class="text-xl font-semibold mb-4">Ações Rápidas</h2>
+        <div class="flex gap-4 flex-wrap">
+          <Button size="md" onclick="window.location.href='/leads'">
+            Novo Lead
+          </Button>
+          <Button variant="secondary" size="md" onclick="window.location.href='/clientes'">
+            Ver Clientes
+          </Button>
+          <Button variant="outline" size="md" onclick="window.location.href='/fichas'">
+            Fichas de Serviço
+          </Button>
+        </div>
+      </Card>
+
+      {/* Navigation Grid */}
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+        <Card variant="default" class="cursor-pointer hover:shadow-lg transition-shadow text-center p-6" onclick="window.location.href='/leads'">
+          <p class="text-2xl mb-2">📥</p>
+          <p class="font-semibold">Leads</p>
+        </Card>
+        <Card variant="default" class="cursor-pointer hover:shadow-lg transition-shadow text-center p-6" onclick="window.location.href='/clientes'">
+          <p class="text-2xl mb-2">👥</p>
+          <p class="font-semibold">Clientes</p>
+        </Card>
+        <Card variant="default" class="cursor-pointer hover:shadow-lg transition-shadow text-center p-6" onclick="window.location.href='/fichas'">
+          <p class="text-2xl mb-2">📋</p>
+          <p class="font-semibold">Fichas</p>
+        </Card>
+        <Card variant="default" class="cursor-pointer hover:shadow-lg transition-shadow text-center p-6" onclick="window.location.href='/funcionarios'">
+          <p class="text-2xl mb-2">👨‍💼</p>
+          <p class="font-semibold">Equipe</p>
+        </Card>
+        <Card variant="default" class="cursor-pointer hover:shadow-lg transition-shadow text-center p-6" onclick="window.location.href='/financeiro'">
+          <p class="text-2xl mb-2">💰</p>
+          <p class="font-semibold">Financeiro</p>
+        </Card>
+        <Card variant="default" class="cursor-pointer hover:shadow-lg transition-shadow text-center p-6" onclick="alert('Em desenvolvimento')">
+          <p class="text-2xl mb-2">📊</p>
+          <p class="font-semibold">Relatórios</p>
+        </Card>
+        <Card variant="default" class="cursor-pointer hover:shadow-lg transition-shadow text-center p-6" onclick="alert('Em desenvolvimento')">
+          <p class="text-2xl mb-2">⚙️</p>
+          <p class="font-semibold">Configurações</p>
+        </Card>
+        <Card variant="default" class="cursor-pointer hover:shadow-lg transition-shadow text-center p-6" onclick="alert('Em desenvolvimento')">
+          <p class="text-2xl mb-2">📱</p>
+          <p class="font-semibold">Aplicativo</p>
+        </Card>
+      </div>
+
+      {/* Recent Activity */}
+      <Card variant="default" class="mt-8">
+        <h2 class="text-xl font-semibold mb-4">Atividade Recente</h2>
+        <div class="text-gray-500 text-center py-8">
+          Nenhuma atividade recente
+        </div>
+      </Card>
+    </div>
+  </main>
+</Layout>

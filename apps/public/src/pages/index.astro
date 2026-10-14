@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Navbar, Button } from '@dk-revestimentos/design-system';
+import HeroSection from '../components/HeroSection.astro';
+import ServicesSection from '../components/ServicesSection.astro';
+import PortfolioSection from '../components/PortfolioSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+
+import { siteConfig } from '../data/site';
+import { services } from '../data/services';
+import { portfolio } from '../data/portfolio';
+---
+
+<Layout title="Home">
+  <Navbar
+    logo="DK Revestimentos"
+    items={[
+      { label: 'Serviços', href: '#services' },
+      { label: 'Portfólio', href: '#portfolio' },
+      { label: 'Contato', href: '#contact' },
+    ]}
+  >
+    <Button client:load onclick={() => window.location.href = siteConfig.whatsapp}>
+      Falar no WhatsApp
+    </Button>
+  </Navbar>
+
+  <main>
+    <HeroSection
+      title="Revestimentos que Transformam"
+      subtitle="Qualidade premium, atendimento personalizado, entrega dentro do prazo."
+      ctaText="Solicitar Orçamento"
+      ctaLink={siteConfig.whatsapp}
+    />
+
+    <ServicesSection
+      id="services"
+      title="Nossos Serviços"
+      subtitle="Oferecemos soluções completas em revestimentos para residências e comerciais"
+      services={services}
+    />
+
+    <PortfolioSection
+      id="portfolio"
+      title="Portfólio de Projetos"
+      subtitle="Conheça alguns dos nossos trabalhos realizados"
+      projects={portfolio}
+    />
+
+    <ContactSection
+      email={siteConfig.email}
+      phone={siteConfig.phone}
+      whatsapp={siteConfig.whatsapp}
+      address={siteConfig.address}
+    />
+  </main>
+
+  <Footer
+    name={siteConfig.name}
+    email={siteConfig.email}
+    year={new Date().getFullYear()}
+    social={siteConfig.social}
+  />
+</Layout>
