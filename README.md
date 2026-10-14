@@ -44,6 +44,13 @@ yarn lint
 yarn format
 ```
 
+## Deploy (GitHub Pages)
+
+- Site público: `https://arthurfontes189.github.io/DK-revestimentos/`
+- Workflow: `.github/workflows/deploy-pages.yml`
+- Build publicado: `apps/public/dist` (somente `@dk-revestimentos/public`)
+- Em **Settings → Pages**, a opção **Source** deve estar em **GitHub Actions**.
+
 ## Fases de Implementação
 
 - ✅ **Phase 1:** Setup estrutura + Design System base
