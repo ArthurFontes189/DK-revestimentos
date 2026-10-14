@@ -1,4 +1,4 @@
-@import '@dk-revestimentos/design-system/tokens.css';
+@import '@dk-revestimentos/design-system/tokens';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
